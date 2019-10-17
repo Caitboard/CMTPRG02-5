@@ -16,7 +16,5 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::get('/protected', ['middleware' => ['auth', 'admin'], function() {
-    return 'Admin protected';
-}]);
+
 Route::get('/home', 'HomeController@index')->name('home');

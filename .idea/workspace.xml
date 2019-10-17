@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b45a36d1-5144-4b0b-88f9-c4e918a61508" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laravel/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravel/app/Http/Kernel.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/laravel/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravel/app/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laravel/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravel/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laravel/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravel/resources/views/layouts/app.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/laravel/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravel/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -160,9 +158,10 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="C:/xampp/htdocs/laravel/CMTPRG01-5" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -180,17 +179,7 @@
     <option name="allServicesViewState">
       <serviceView>
         <treeState>
-          <expand>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@f20b471b" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-            </path>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@f20b471b" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@39de5d5" type="9fbbdea:ServiceModel$ServiceNode" />
-            </path>
-          </expand>
+          <expand />
           <select />
         </treeState>
       </serviceView>
@@ -210,7 +199,13 @@
       <workItem from="1569780709245" duration="1227000" />
       <workItem from="1569839415267" duration="295000" />
       <workItem from="1569839845114" duration="154000" />
-      <workItem from="1569840325148" duration="6979000" />
+      <workItem from="1569840325148" duration="7880000" />
+      <workItem from="1570443368727" duration="56000" />
+      <workItem from="1570443682896" duration="1111000" />
+      <workItem from="1570445657003" duration="2537000" />
+      <workItem from="1571052239628" duration="599000" />
+      <workItem from="1571301900702" duration="607000" />
+      <workItem from="1571313873409" duration="4179000" />
     </task>
     <servers />
   </component>

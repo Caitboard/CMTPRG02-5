@@ -73,7 +73,26 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+{{--            If user is authenticated; show navbar. Else: just login screen--}}
+            @auth
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="ul list-group">
+                                <div class="list-group-item">
+                                    <a href=" {{ url('#') }}">Posts</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            @yield('content')
+                        </div>
+                    </div>
+                </div>
+            @else
+                @yield('content')
+            @endauth
+
         </main>
     </div>
 </body>
