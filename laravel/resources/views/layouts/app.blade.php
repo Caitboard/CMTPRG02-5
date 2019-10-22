@@ -73,14 +73,23 @@
         </nav>
 
         <main class="py-4">
-{{--            If user is authenticated; show navbar. Else: just login screen--}}
+{{--            Als de user authenticated is is de navbar zichtbaar, else alleen het login screen--}}
             @auth
                 <div class="container">
+                    {{--Als de sessie een flash message 'success' heeft wordt dit getoond op het scherm--}}
+                    @if(session()->has('success'))
+                        <div class="alert alert-success">
+                            {{ session()->get('success') }}
+                        </div>
+                    @endif
                     <div class="row">
                         <div class="col-md-4">
                             <div class="ul list-group">
                                 <div class="list-group-item">
                                     <a href=" {{ url('#') }}">Posts</a>
+                                </div>
+                                <div class="list-group-item">
+                                    <a href="{{ route('categories.index') }}">Categories</a>
                                 </div>
                             </div>
                         </div>
@@ -93,7 +102,13 @@
                 @yield('content')
             @endauth
 
+
         </main>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"  crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"  crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"  crossorigin="anonymous"></script>
+    @yield('script')
 </body>
 </html>
