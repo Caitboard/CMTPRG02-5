@@ -1,0 +1,124 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\Posts\CreatePostRequest;
+use App\Http\Requests\Posts\UpdatePostRequest;
+use Illuminate\Http\Request;
+use App\Post;
+use Illuminate\Support\Facades\Storage;
+
+class PostController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('posts.index')->with('posts', Post::all());
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('posts.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(CreatePostRequest $request)
+    {
+        // image wordt in storage/app/public/posts opgeslagen en gehasht, doordat  in .env de FILESYSTEM_DRIVER op public is gezet
+//        om de image te weergeven in front-end: php artisan storage:link. Nu is de storage/public gelinkt met public/storage
+        $image = $request->image->store('posts');
+
+        Post::create([
+            'title' => $request->title,
+            'date' => $request->date,
+            'rating' => $request->rating,
+            'review' => $request->review,
+            'image' => $image
+
+        ]);
+
+        session()->flash('success', 'Movie added!');
+
+        return redirect(route('posts.index'));
+
+
+//
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param Post $post
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Post $post)
+    {
+        return view('posts.create')->with('post', $post);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param UpdatePostRequest $request
+     * @param $id
+     * @return void
+     */
+    public function update(UpdatePostRequest $request, Post $post)
+    {
+        $data = $request->only(['title', 'date', 'rating', 'review']);
+        if ($request->hasFile('image')) {
+            $image = $request->image->store('posts');
+            Storage::delete($post->image);
+            $data['image'] = $image;
+        }
+        $post->update($data);
+
+        session()->flash('success', 'Movie updated');
+
+        return redirect(route('posts.index'));
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param Post $post
+     * @return \Illuminate\Http\Response
+     * @throws \Exception
+     */
+    public function destroy(Post $post)
+    {
+        $post->delete();
+
+        Storage::delete($post->image);
+
+        session()->flash('success', 'Movie deleted');
+
+        return redirect(route('posts.index'));
+    }
+}
