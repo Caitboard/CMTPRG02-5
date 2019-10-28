@@ -20,6 +20,7 @@ class CreatePostsTable extends Migration
             $table->timestamp('date');
             $table->text('review')->nullable();
             $table->string('image')->nullable();
+            $table->integer('category_id');
 
             $table->timestamps();
         });

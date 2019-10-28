@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Http\Requests\Posts\CreatePostRequest;
 use App\Http\Requests\Posts\UpdatePostRequest;
 use Illuminate\Http\Request;
@@ -10,6 +11,12 @@ use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('verifyCategoriesCount')->only(['create', 'store']);
+//        Door middleware te gebruiken op create en store kan je alleen bij deze functies als je aan de eisen in de middleware VerifyCategoriesCount voldoet
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +34,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        return view('posts.create')->with('categories', Category::all());
     }
 
     /**
@@ -47,7 +54,8 @@ class PostController extends Controller
             'date' => $request->date,
             'rating' => $request->rating,
             'review' => $request->review,
-            'image' => $image
+            'image' => $image,
+            'category_id' => $request->category
 
         ]);
 
@@ -78,7 +86,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('posts.create')->with('post', $post);
+        return view('posts.create')->with('post', $post)->with('categories', Category::all());
     }
 
     /**

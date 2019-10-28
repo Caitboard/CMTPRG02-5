@@ -27,7 +27,8 @@ class UpdatePostRequest extends FormRequest
             'title' => 'required',
             'rating' => 'required|integer|between:1,10',
             'review' => 'nullable|max:2000',
-            'image' => 'image'
+            'image' => 'image',
+            'category' => 'required'
         ];
     }
 }
