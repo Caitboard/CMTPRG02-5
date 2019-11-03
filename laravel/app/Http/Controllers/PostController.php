@@ -153,6 +153,11 @@ class PostController extends Controller
         return view('posts.search')->with('error', $error)->with('query', $query)->with('posts', $posts);
 
     }
+
+    public function filter(Category $category)
+    {
+        return view('posts.filter')->with('category', $category)->with('posts', Post::all());
+    }
 }
 //->orWhere('review','LIKE', '%' . $query . '%' )->get()
 //compact('posts', 'query', 'error'));

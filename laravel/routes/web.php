@@ -25,6 +25,7 @@ Route::middleware([ 'auth'])->group(function () {
     // Resource zorgt ervoor dat alle methods in de controller aangeroepen worden, zodat je niet voor elke method
     // een route moet maken. Zie php artisan route:list
     Route::get('posts/search', 'PostController@search')->name('posts.search');
+    Route::get('posts/{category}/filter', 'PostController@filter')->name('posts.filter');
     Route::resource('posts', 'PostController')->middleware('auth');
 
 });

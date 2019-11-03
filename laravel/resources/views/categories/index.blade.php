@@ -18,7 +18,7 @@
                 @foreach($categories as $category) @if(Auth::user() == $category->user)
                     <tr>
                         <td>
-                            {{ $category->name }}
+                            <a href="{{ route('posts.filter', $category->id) }}"> {{ $category->name }}</a>
                         </td>
                         <td>
                             {{ $category->posts->count() }}
