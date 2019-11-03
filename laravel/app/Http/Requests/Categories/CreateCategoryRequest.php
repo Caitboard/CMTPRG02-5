@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Categories;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 
 class CreateCategoryRequest extends FormRequest
@@ -25,7 +26,8 @@ class CreateCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:categories'
+            'name' => 'required|unique:categories,name,NULL,id,user_id,'.Auth::user() -> id.'',
+//                ['required|unique:categories']
 //            De categorie moet ingevuld worden en laravel controleert of de naam niet al bestaat in de database
         ];
     }

@@ -8,6 +8,25 @@
 <div class="card card-default">
     <div class="card-header">Movies</div>
         <div class="card-body">
+            <form action="{{ route('posts.search') }}" method="GET">
+                @csrf
+                <div class="form-group">
+                    <label for="search">
+                        <input type="search" name="search" class="form-control" placeholder="Search">
+                    </label>
+{{--                    <div class="form-group">--}}
+{{--                        <label for="category" class="for">Filter</label>--}}
+{{--                        <select name="category" id="category" class="form-control">--}}
+{{--                            @foreach($categories as $category)--}}
+{{--                                <option value="{{ $category->id }}">--}}
+{{--                                    {{ $category->name }}--}}
+{{--                                </option>--}}
+{{--                            @endforeach--}}
+{{--                        </select>--}}
+{{--                    </div>--}}
+                    <button type="submit" class="btn">Search</button>
+                </div>
+            </form>
         <table class="table">
             <thead>
             <th>Image</th>
@@ -17,13 +36,14 @@
             <th></th>
             </thead>
             <tbody>
-            @foreach($posts as $post)
+            @foreach($posts as $post) @if(Auth::user() == $post->user)
                 <tr>
                     <td>
                         <img src="{{ asset('/storage/'.$post->image) }}" width="60px" height="60px" alt="">
                     </td>
                     <td>
-                        {{ $post->title }}
+                        <a href="{{ route('posts.show', $post->id) }}" >{{ $post->title }}</a>
+
                     </td>
                     <td>
                         <a href="{{ route('categories.edit', $post->category->id) }}">{{ $post->category->name }}</a>
@@ -35,7 +55,7 @@
                         <button class="btn btn-danger btn-sm" onclick="handleDelete({{ $post->id }})">Delete</button>
                     </td>
                 </tr>
-
+            @endif
             @endforeach
 
             </tbody>

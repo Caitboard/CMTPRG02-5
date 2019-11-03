@@ -15,7 +15,7 @@
             <th></th>
             </thead>
             <tbody>
-                @foreach($categories as $category)
+                @foreach($categories as $category) @if(Auth::user() == $category->user)
                     <tr>
                         <td>
                             {{ $category->name }}
@@ -28,6 +28,7 @@
                             <button class="btn btn-danger btn-sm" onclick="handleDelete({{ $category->id }})">Delete</button>
                         </td>
                     </tr>
+                    @endif
                 @endforeach
             </tbody>
         </table>

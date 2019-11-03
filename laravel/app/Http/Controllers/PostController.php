@@ -8,6 +8,7 @@ use App\Http\Requests\Posts\UpdatePostRequest;
 use Illuminate\Http\Request;
 use App\Post;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -24,7 +25,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('posts.index')->with('posts', Post::all());
+        return view('posts.index')->with('posts', Post::all())->with('categories', Category::all());
     }
 
     /**
@@ -55,7 +56,8 @@ class PostController extends Controller
             'rating' => $request->rating,
             'review' => $request->review,
             'image' => $image,
-            'category_id' => $request->category
+            'category_id' => $request->category,
+            'user_id' => Auth::user()->id
 
         ]);
 
@@ -70,12 +72,17 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Post $post
+     * @return void
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        //
+        if(Auth::user() == $post->user){
+        return view('posts.show')->with('post', $post);
+        }
+        else {
+            return redirect(route('posts.index'));
+        }
     }
 
     /**
@@ -86,19 +93,26 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('posts.create')->with('post', $post)->with('categories', Category::all());
+        if(Auth::user() == $post->user) {
+            return view('posts.create')->with('post', $post)->with('categories', Category::all());
+        }
+        else {
+            return redirect(route('posts.index'));
+        }
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param UpdatePostRequest $request
-     * @param $id
+     * @param Post $post
      * @return void
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
         $data = $request->only(['title', 'date', 'rating', 'review']);
+        $post->category()->associate($request->category);
+
         if ($request->hasFile('image')) {
             $image = $request->image->store('posts');
             Storage::delete($post->image);
@@ -129,4 +143,16 @@ class PostController extends Controller
 
         return redirect(route('posts.index'));
     }
+
+    public function search(Request $request)
+    {
+        $error = "Nothing found";
+        $query = $request->get('search');
+        $posts = Post::where('title', 'LIKE', '%' . $query . '%')->orWhere('review', 'LIKE', '%' . $query . '%')->get();
+//        Zoekt in zowel de title als de review
+        return view('posts.search')->with('error', $error)->with('query', $query)->with('posts', $posts);
+
+    }
 }
+//->orWhere('review','LIKE', '%' . $query . '%' )->get()
+//compact('posts', 'query', 'error'));

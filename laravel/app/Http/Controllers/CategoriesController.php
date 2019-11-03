@@ -6,6 +6,7 @@ use App\Category;
 use App\Http\Requests\Categories\CreateCategoryRequest;
 use App\Http\Requests\Categories\UpdateCategoryRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoriesController extends Controller
 {
@@ -39,7 +40,8 @@ class CategoriesController extends Controller
     {
 //  Validatie wordt in CreateCategoryRequest afgehandeld
         Category::create([
-            'name' => $request->name
+            'name' => $request->name,
+            'user_id' => Auth::user()->id
         ]);
 
         session()->flash('success', 'Category created');
@@ -66,7 +68,13 @@ class CategoriesController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('categories.create')->with('category', $category);
+        if(Auth::user() == $category->user) {
+            return view('categories.create')->with('category', $category);
+        }
+        else {
+            return redirect(route('posts.index'));
+        }
+
     }
 
     /**

@@ -106,7 +106,6 @@
                                         <a href=" {{ route('users.index') }}">Users</a>
                                     </div>
                                 @endif
-
                             </div>
                         </div>
                         <div class="col-md-8">

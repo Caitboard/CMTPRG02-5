@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Category;
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class VerifyCategoriesCount
 {
@@ -16,7 +17,7 @@ class VerifyCategoriesCount
      */
     public function handle($request, Closure $next)
     {
-        if (Category::all()->count() < 3) {
+        if (Category::where('user_id', Auth::user()->id)->count() < 3) {
             session()->flash('error', 'You have to add at least 3 categories to be able to add a movie');
             return redirect(route('categories.create'));
         }
